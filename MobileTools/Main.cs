@@ -12,24 +12,28 @@ using UnhollowerBaseLib;
 using UnityEngine;
 using System.IO;
 using Object = UnityEngine.Object;
+using IniFile = System.IniFile;
 using HarmonyLib;
 using System.Threading;
 using System.Globalization;
 using System.Collections.Concurrent;
 
-[assembly: MelonInfo(typeof(MobileTools.Main), "Mobile Tools", "1.0.0", "Aidanamite")]
+[assembly: MelonInfo(typeof(MobileTools.Main), "Mobile Tools", MobileTools.Main.VERSION, "Aidanamite")]
 
 namespace MobileTools
 {
     public class Main : MelonMod
     {
-        public static string ConfigFolder = "/storage/emulated/0/SoD Mod Config";
+        public const string VERSION = "1.1.0";
+        public static string ConfigFolder = "/storage/emulated/0/MelonLoader/com.KnowledgeAdventure.SchoolOfDragons/Config";
         internal static Dictionary<MelonMod, ConfigFile> configFiles = new();
         internal static Dictionary<string, MelonMod> configFileToMod = new();
         static MelonLogger.Instance logger;
 
         public override void OnEarlyInitializeMelon()
         {
+            ConfigFolder = new DirectoryInfo(typeof(Main).Assembly.Location).Parent.Parent.CreateSubdirectory("Config").FullName;
+            LoggerInstance.Msg("Config path: " + ConfigFolder);
             // Disabled code until I find a way to request storage write permisions. So far all the UnityEngine.Android.Permission functions throw "NotSupportedException: Method unstripping failed"
             /*var pendingRequest = true;
             //if (!UnityEngine.Android.Permission.HasUserAuthorizedPermission("android.permission.MANAGE_EXTERNAL_STORAGE"))
@@ -65,6 +69,7 @@ namespace MobileTools
                 }
             void SetupConfig(MelonMod mod)
             {
+                
                 if (mod != null && mod != this)
                 {
                     List<(FieldInfo, ConfigFieldAttribute)> l = new();
@@ -114,13 +119,13 @@ namespace MobileTools
         internal static bool writing = false;
         public void OnConfigFileChanged(object sender, FileSystemEventArgs args)
         {
+            if (writing)
+                return;
             if (mainThread != Thread.CurrentThread)
             {
                 pending.Enqueue(() => OnConfigFileChanged(sender, args));
                 return;
             }
-            if (writing)
-                return;
             if (configFileToMod.TryGetValue(args.FullPath.ToLowerInvariant(), out var mod))
                 configFiles[mod].Load();
         }
@@ -153,16 +158,20 @@ namespace MobileTools
         }
 
         static Dictionary<string, DateTime> changeMemory = new();
+        static bool changeMemPopulated = false;
         public static void OnFocusChanged(bool isFocused)
         {
             if (isFocused)
             {
-                foreach (var f in configFileToMod)
-                    if (File.Exists(f.Key) && (!changeMemory.TryGetValue(f.Key, out var time) || time != File.GetLastWriteTimeUtc(f.Key)))
-                        ConfigFile.Reload(f.Value);
+                if (changeMemPopulated)
+                    foreach (var f in configFileToMod)
+                        if (File.Exists(f.Key) && (!changeMemory.TryGetValue(f.Key, out var time) || time != File.GetLastWriteTimeUtc(f.Key)))
+                            ConfigFile.Reload(f.Value);
+                changeMemPopulated = false;
             }
             else
             {
+                changeMemPopulated = true;
                 changeMemory.Clear();
                 foreach (var f in configFileToMod.Keys)
                     if (File.Exists(f))
@@ -216,7 +225,7 @@ namespace MobileTools
 
     public class ConfigFile
     {
-        INI file;
+        string file;
         internal Dictionary<string, Dictionary<string, FieldInfo>> configs = new();
         internal static Dictionary<Type, ConfigTypeParser> parsers = new();
         static ConfigFile()
@@ -253,7 +262,7 @@ namespace MobileTools
                 }
             if (!File.Exists(path))
                 File.WriteAllBytes(path, []);
-            file = new(path);
+            file = path;
             foreach (var p in fields)
                 configs.GetOrCreate(p.Item2.Section)[p.Item2.KeyOverride ?? p.Item1.Name] = p.Item1;
             try
@@ -269,29 +278,41 @@ namespace MobileTools
             var missing = false;
             try
             {
-                var values = file.ReadAllValues();
+                var values = IniFile.FromFile(file);
                 foreach (var s in configs)
-                    if (!values.TryGetValue(s.Key, out var section))
+                {
+                    var section = values.Sections.Find(x => x.Name == s.Key);
+                    if (section == null)
+                    {
+                        Main.LogInfo($"Section not found for \"{s.Key}\"");
                         missing = true;
+                    }
                     else
                         foreach (var c in s.Value)
-                            if (section.TryGetValue(c.Key, out var value))
+                        {
+                            var value = section.Lines.Find(x => x.Key == c.Key);
+                            if (value == null)
+                            {
+                                Main.LogInfo($"Entry not found for \"{c.Key}\" ({s.Key})");
+                                missing = true;
+                            }
+                            else
                             {
                                 var t = c.Value.FieldType;
                                 object parsed;
                                 var nullable = t.IsConstructedGenericType && t.GetGenericTypeDefinition() == typeof(Nullable<>);
                                 if (nullable)
                                     t = t.GetGenericArguments()[0];
-                                if (nullable && value == "")
+                                if (nullable && value.Value == "")
                                     parsed = null;
                                 else
                                 {
                                     try
                                     {
                                         if (parsers.TryGetValue(t, out var parser))
-                                            parsed = parser.ToObject(value);
+                                            parsed = parser.ToObject(value.Value);
                                         else if (t.IsEnum)
-                                            parsed = DefaultParsers.EnumParser.ToObject(t, value);
+                                            parsed = DefaultParsers.EnumParser.ToObject(t, value.Value);
                                         else
                                         {
                                             Main.LogError("Class " + c.Value.FieldType.FullName + " is not a supported configuration type. Use ConfigTypeParser<" + c.Value.FieldType.FullName + ">.Register() to add support for another type");
@@ -315,8 +336,8 @@ namespace MobileTools
                                     Main.LogError(e);
                                 }
                             }
-                            else
-                                missing = true;
+                        }
+                }
             }
             catch (Exception e)
             {
@@ -340,7 +361,11 @@ namespace MobileTools
             if (!Directory.Exists(Main.ConfigFolder))
                 Directory.CreateDirectory(Main.ConfigFolder);
             Main.writing = true;
+            var f = new IniFile();
             foreach (var s in configs)
+            {
+                var section = new IniSection() { Name = s.Key };
+                f.Sections.Add(section);
                 foreach (var c in s.Value)
                 {
                     var t = c.Value.FieldType;
@@ -367,13 +392,15 @@ namespace MobileTools
                     }
                     try
                     {
-                        file.WriteValue(s.Key, c.Key, parsed);
+                        section.Lines.Add(new IniLine() { Key = c.Key, Value = parsed });
                     }
                     catch (Exception e)
                     {
                         Main.LogError(e);
                     }
                 }
+            }
+            f.ToFile(file);
             Main.writing = false;
         }
         public static void Reload(MelonMod mod)

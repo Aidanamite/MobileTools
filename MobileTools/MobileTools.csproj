@@ -37,17 +37,13 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="INI.cs" />
+    <Compile Include="IniFile.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="0Harmony">
       <HintPath>..\..\.mobile-asm\etc\0Harmony.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="AppsFlyer">
-      <HintPath>..\..\.mobile-asm\AppsFlyer.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Assembly-CSharp">
@@ -66,44 +62,56 @@
       <HintPath>..\..\.mobile-asm\etc\AssetsTools.NET.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="BakeryRuntimeAssembly">
-      <HintPath>..\..\.mobile-asm\BakeryRuntimeAssembly.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="bHapticsLib">
       <HintPath>..\..\.mobile-asm\etc\bHapticsLib.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="DOTween">
-      <HintPath>..\..\.mobile-asm\DOTween.dll</HintPath>
+    <Reference Include="Disarm">
+      <HintPath>..\..\.mobile-asm\etc\Disarm.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="HtmlAgilityPack">
-      <HintPath>..\..\.mobile-asm\HtmlAgilityPack.dll</HintPath>
+    <Reference Include="Iced">
+      <HintPath>..\..\.mobile-asm\etc\Iced.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="I18N">
-      <HintPath>..\..\.mobile-asm\I18N.dll</HintPath>
+    <Reference Include="Il2Cpp">
+      <HintPath>..\..\.mobile-asm\etc\Il2Cpp.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="I18N.CJK">
-      <HintPath>..\..\.mobile-asm\I18N.CJK.dll</HintPath>
+    <Reference Include="Il2CppAppsFlyer">
+      <HintPath>..\..\.mobile-asm\Il2CppAppsFlyer.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="I18N.MidEast">
-      <HintPath>..\..\.mobile-asm\I18N.MidEast.dll</HintPath>
+    <Reference Include="Il2CppBakeryRuntimeAssembly">
+      <HintPath>..\..\.mobile-asm\Il2CppBakeryRuntimeAssembly.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="I18N.Other">
-      <HintPath>..\..\.mobile-asm\I18N.Other.dll</HintPath>
+    <Reference Include="Il2CppDOTween">
+      <HintPath>..\..\.mobile-asm\Il2CppDOTween.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="I18N.Rare">
-      <HintPath>..\..\.mobile-asm\I18N.Rare.dll</HintPath>
+    <Reference Include="Il2CppHtmlAgilityPack">
+      <HintPath>..\..\.mobile-asm\Il2CppHtmlAgilityPack.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="I18N.West">
-      <HintPath>..\..\.mobile-asm\I18N.West.dll</HintPath>
+    <Reference Include="Il2CppInterop.Common">
+      <HintPath>..\..\.mobile-asm\etc\Il2CppInterop.Common.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Il2CppInterop.Generator">
+      <HintPath>..\..\.mobile-asm\etc\Il2CppInterop.Generator.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Il2CppInterop.HarmonySupport">
+      <HintPath>..\..\.mobile-asm\etc\Il2CppInterop.HarmonySupport.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Il2CppInterop.Runtime">
+      <HintPath>..\..\.mobile-asm\etc\Il2CppInterop.Runtime.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Il2CppKnowledgeAdventure.Multiplayer">
+      <HintPath>..\..\.mobile-asm\Il2CppKnowledgeAdventure.Multiplayer.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Il2CppMono.Security">
@@ -112,6 +120,38 @@
     </Reference>
     <Reference Include="Il2Cppmscorlib">
       <HintPath>..\..\.mobile-asm\Il2Cppmscorlib.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Il2CppNewtonsoft.Json">
+      <HintPath>..\..\.mobile-asm\Il2CppNewtonsoft.Json.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Il2CppOneSignal.Android">
+      <HintPath>..\..\.mobile-asm\Il2CppOneSignal.Android.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Il2CppOneSignal.Core">
+      <HintPath>..\..\.mobile-asm\Il2CppOneSignal.Core.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Il2CppOneSignal.UnityPackage.Attribution">
+      <HintPath>..\..\.mobile-asm\Il2CppOneSignal.UnityPackage.Attribution.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Il2CppOneSignal.UnityPackage.Example">
+      <HintPath>..\..\.mobile-asm\Il2CppOneSignal.UnityPackage.Example.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Il2CppPurchasing.Common">
+      <HintPath>..\..\.mobile-asm\Il2CppPurchasing.Common.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Il2CppSmartFox2X">
+      <HintPath>..\..\.mobile-asm\Il2CppSmartFox2X.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Il2CppSmartFoxClient">
+      <HintPath>..\..\.mobile-asm\Il2CppSmartFoxClient.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Il2CppSystem">
@@ -150,6 +190,10 @@
       <HintPath>..\..\.mobile-asm\Il2CppSystem.Xml.Linq.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Il2Cpp__Generated">
+      <HintPath>..\..\.mobile-asm\Il2Cpp__Generated.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="IndexRange">
       <HintPath>..\..\.mobile-asm\etc\IndexRange.dll</HintPath>
       <Private>False</Private>
@@ -158,17 +202,14 @@
       <HintPath>..\..\.mobile-asm\etc\JNISharp.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="KnowledgeAdventure.Multiplayer">
-      <HintPath>..\..\.mobile-asm\KnowledgeAdventure.Multiplayer.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="MelonLoader">
       <HintPath>..\..\.mobile-asm\etc\MelonLoader.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Mono.Btls.Interface">
-      <HintPath>..\..\.mobile-asm\Mono.Btls.Interface.dll</HintPath>
+    <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\.mobile-asm\etc\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Mono.Cecil">
@@ -187,28 +228,20 @@
       <HintPath>..\..\.mobile-asm\etc\Mono.Cecil.Rocks.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Mono.CompilerServices.SymbolWriter">
-      <HintPath>..\..\.mobile-asm\Mono.CompilerServices.SymbolWriter.dll</HintPath>
+    <Reference Include="MonoMod.Core">
+      <HintPath>..\..\.mobile-asm\etc\MonoMod.Core.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Mono.CSharp">
-      <HintPath>..\..\.mobile-asm\Mono.CSharp.dll</HintPath>
+    <Reference Include="MonoMod.Iced">
+      <HintPath>..\..\.mobile-asm\etc\MonoMod.Iced.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Mono.Data.Sqlite">
-      <HintPath>..\..\.mobile-asm\Mono.Data.Sqlite.dll</HintPath>
+    <Reference Include="MonoMod.ILHelpers">
+      <HintPath>..\..\.mobile-asm\etc\MonoMod.ILHelpers.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Mono.Data.Tds">
-      <HintPath>..\..\.mobile-asm\Mono.Data.Tds.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Mono.Posix">
-      <HintPath>..\..\.mobile-asm\Mono.Posix.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Mono.Security">
-      <HintPath>..\..\.mobile-asm\Mono.Security.dll</HintPath>
+    <Reference Include="MonoMod.Patcher">
+      <HintPath>..\..\.mobile-asm\etc\MonoMod.Patcher.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="MonoMod.RuntimeDetour">
@@ -219,41 +252,8 @@
       <HintPath>..\..\.mobile-asm\etc\MonoMod.Utils.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=13.0.1.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\.mobile-asm\Newtonsoft.Json.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="nunitlite">
-      <HintPath>..\..\.mobile-asm\nunitlite.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="OneSignal.Android">
-      <HintPath>..\..\.mobile-asm\OneSignal.Android.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="OneSignal.Core">
-      <HintPath>..\..\.mobile-asm\OneSignal.Core.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="OneSignal.UnityPackage.Attribution">
-      <HintPath>..\..\.mobile-asm\OneSignal.UnityPackage.Attribution.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="OneSignal.UnityPackage.Example">
-      <HintPath>..\..\.mobile-asm\OneSignal.UnityPackage.Example.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Purchasing.Common">
-      <HintPath>..\..\.mobile-asm\Purchasing.Common.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="SmartFox2X">
-      <HintPath>..\..\.mobile-asm\SmartFox2X.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="SmartFoxClient">
-      <HintPath>..\..\.mobile-asm\SmartFoxClient.dll</HintPath>
+    <Reference Include="Preload">
+      <HintPath>..\..\.mobile-asm\etc\Preload.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System">
@@ -267,18 +267,10 @@
     <Reference Include="System.IdentityModel" />
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.IO.Compression.FileSystem" />
-    <Reference Include="System.Json">
-      <HintPath>..\..\.mobile-asm\System.Json.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="System.Net">
       <HintPath>..\..\.mobile-asm\System.Net.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http" />
-    <Reference Include="System.Net.Http.WinHttpHandler">
-      <HintPath>..\..\.mobile-asm\System.Net.Http.WinHttpHandler.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="System.Numerics" />
     <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -432,6 +424,14 @@
       <HintPath>..\..\.mobile-asm\UnityEngine.ClothModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="UnityEngine.ClusterInputModule">
+      <HintPath>..\..\.mobile-asm\UnityEngine.ClusterInputModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.ClusterRendererModule">
+      <HintPath>..\..\.mobile-asm\UnityEngine.ClusterRendererModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="UnityEngine.CoreModule">
       <HintPath>..\..\.mobile-asm\UnityEngine.CoreModule.dll</HintPath>
       <Private>False</Private>
@@ -464,14 +464,6 @@
       <HintPath>..\..\.mobile-asm\UnityEngine.HotReloadModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="UnityEngine.Il2CppAssetBundleManager">
-      <HintPath>..\..\.mobile-asm\UnityEngine.Il2CppAssetBundleManager.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.Il2CppImageConversionManager">
-      <HintPath>..\..\.mobile-asm\UnityEngine.Il2CppImageConversionManager.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="UnityEngine.ImageConversionModule">
       <HintPath>..\..\.mobile-asm\UnityEngine.ImageConversionModule.dll</HintPath>
       <Private>False</Private>
@@ -494,6 +486,10 @@
     </Reference>
     <Reference Include="UnityEngine.LocalizationModule">
       <HintPath>..\..\.mobile-asm\UnityEngine.LocalizationModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.NVIDIAModule">
+      <HintPath>..\..\.mobile-asm\UnityEngine.NVIDIAModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.ParticleSystemModule">
@@ -686,6 +682,10 @@
     </Reference>
     <Reference Include="UnityEngine.VideoModule">
       <HintPath>..\..\.mobile-asm\UnityEngine.VideoModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.VirtualTexturingModule">
+      <HintPath>..\..\.mobile-asm\UnityEngine.VirtualTexturingModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.VRModule">
